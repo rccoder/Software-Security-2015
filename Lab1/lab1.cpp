@@ -1,12 +1,14 @@
-// ConsoleApplication1.cpp : 定义控制台应用程序的入口点。
-//
 #include "stdafx.h"
 #include "iostream"
-#include "string.h"
+#include <string>
+#include <set>
 #define MAXLEN 100
+using namespace std;
 
-int count = 0;
+int number = 0;
 char result[MAXLEN];
+set<string> s;
+
 int LCSLength(char *x, char *y, int m, int n, int c[][MAXLEN], int b[][MAXLEN])
 {
 	int i, j;
@@ -46,12 +48,8 @@ int LCSLength(char *x, char *y, int m, int n, int c[][MAXLEN], int b[][MAXLEN])
 void PrintLCS(int b[][MAXLEN], char *x, int i, int j, int now, int length)
 {
 	if (i == 0 || j == 0) {
-		for (int k = 0; k < length; k++)
-		{
-			printf("%c", result[k]);
-		}
-		printf("\n");
-		count++;
+		s.insert(result);
+		number++;
 		return;
 	}
 	if (b[i][j] == 0)
@@ -72,8 +70,8 @@ void PrintLCS(int b[][MAXLEN], char *x, int i, int j, int now, int length)
 
 int main()
 {
-	char x[MAXLEN] = { "ABCBDAB" };
-	char y[MAXLEN] = { "BDCABA" };
+	char x[MAXLEN] = { "whereismybackpack" };
+	char y[MAXLEN] = { "isthisbigbackpack" };
 	int b[MAXLEN][MAXLEN];
 	int c[MAXLEN][MAXLEN];
 	int m, n;
@@ -83,7 +81,8 @@ int main()
 
 	int length = LCSLength(x, y, m, n, c, b);
 	PrintLCS(b, x, m, n, length, length);
-	printf("%d", count);
+
+	for (set<string>::iterator p = s.begin(); p != s.end(); p++)
+		cout << (*p) << endl;
 	return 0;
 }
-
